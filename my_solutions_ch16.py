@@ -82,3 +82,48 @@ def max_pop(people : Person) -> int:
           max_year = year
   
   return max_year
+
+# The first straightforward method for subarray would be to sort the array first then compare the sorted vs the unsorted and see the first point at which it is different and the last point it is different. This would be O(N*log(N)) since you are sorting, but we can do faster with O(N)
+
+# Naive approach
+def findSubarry(nums : list[int]) -> tuple:
+  nums2 = sorted(nums)
+  l, r = len(nums),0
+  
+  for i in range(len(nums)):
+    if nums[i] != nums2[i]:
+      l = min(l,i)
+      r = max(r,i)
+      
+  if l==len(nums): return (-1,-1)
+  
+  return (l,r)
+
+# O(N) time solution
+def findSub(nums : list[int]) -> tuple:
+  if len(nums) < 2:
+    return (-1,-1)
+  
+  prev = nums[0]
+  end = 0
+  
+  # check that the array is in increasing order from left to right
+  for i in range(0,len(nums)):
+    if nums[i] < prev:
+      end = i
+    else:
+      prev = nums[i]
+      
+  start = len(nums) -1
+  prev = nums[start]
+  
+  # check that the array is in descending order from right to left
+  for i in range(len(nums)-1,-1,-1):
+    if nums[i] > prev:
+      start = i
+    else:
+      prev = nums[i]
+      
+  if end == 0: return (-1,-1)
+  
+  return (start,end)
