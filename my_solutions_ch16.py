@@ -153,4 +153,9 @@ def contiguous_sequence(nums : list[int])->int:
 
 arr1 = [-10,3,4]
 
-print(contiguous_sequence(arr1))
+# print(contiguous_sequence(arr1))
+
+# this extends the isomorphic problem
+def match_pattern(str:str, pattern:str)->bool:
+  t = str.split()
+  return len(set(zip(pattern, t))) == len(set(pattern)) == len(set(t)) and len(pattern) == len(t)
