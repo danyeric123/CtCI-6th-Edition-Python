@@ -127,3 +127,30 @@ def findSub(nums : list[int]) -> tuple:
   if end == 0: return (-1,-1)
   
   return (start,end)
+
+# This uses Kadane's Algorithm
+def contiguous_sequence(nums : list[int])->int:
+  max_sum = min(nums)
+  sum = 0
+  for num in nums:
+    # First you check whether the sum plus the current would be more than the current num by itself
+    sum = max(num,sum+num)
+    # Then you see if the local maximum is the global maximum
+    max_sum = max(max_sum,sum)
+    
+  return max_sum
+
+# Alternative solution
+  # maxsum = min(nums)
+  # sum_ = 0
+  # for num in nums:
+  #     sum_ += num
+  #     if sum_ > maxsum:
+  #         maxsum = sum_
+  #     if sum_ < 0:
+  #         sum_ = 0
+  # return maxsum
+
+arr1 = [-10,3,4]
+
+print(contiguous_sequence(arr1))
