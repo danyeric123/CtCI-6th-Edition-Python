@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 def swap_nums(a,b):
   a = b - a
   b = b - a
@@ -229,4 +231,26 @@ a = [4,1,2,1,1,2]
 b = [3,6,3,3]
 
 
-print(sum_swap(b,a))
+# print(sum_swap(b,a))
+
+class LRU_Cache:
+  def __init__(self, capacity):
+    self.dic = OrderedDict()
+    self.remain = capacity
+
+  def get(self, key):
+      if key not in self.dic:
+          return -1
+      v = self.dic.pop(key) 
+      self.dic[key] = v   # set key as the newest one
+      return v
+
+  def set(self, key, value):
+      if key in self.dic:    
+          self.dic.pop(key)
+      else:
+          if self.remain > 0:
+              self.remain -= 1  
+          else:  # self.dic is full
+              self.dic.popitem(last=False) 
+      self.dic[key] = value
