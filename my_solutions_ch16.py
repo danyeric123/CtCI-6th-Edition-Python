@@ -160,6 +160,7 @@ def match_pattern(str:str, pattern:str)->bool:
   t = str.split()
   return len(set(zip(pattern, t))) == len(set(pattern)) == len(set(t)) and len(pattern) == len(t)
 
+# This can be done faster by pruning any possibilities that are not a valid word
 def t9_convert(digits : str, valid_words : list[str]) -> list[str]:
   if not digits: return []
         
@@ -183,3 +184,49 @@ def t9_convert(digits : str, valid_words : list[str]) -> list[str]:
 # valid_words = ["tree", "used"]
 
 # print(t9_convert("8733",valid_words))
+
+# Even faster with preprocessing
+def word_to_num(valid_words : list[str]):
+  valid_word_nums = {}
+  lookup = {
+      "2":["a","b","c"],
+      "3":["d","e","f"],
+      "4":["g","h","i"],
+      "5":["j","k","l"],
+      "6":["m","n","o"],
+      "7":["p","q","r","s"],
+      "8":["t","u","v"],
+      "9":["w","x","y","z"]
+  }
+  for word in valid_words:
+    num = ''.join([n for n,letters in lookup.items() for char in word if char in letters])
+    if not num in valid_word_nums.keys(): 
+      valid_word_nums[num] = [word]
+    else:
+      valid_word_nums[num].append(word)
+  return valid_word_nums
+
+def t9_to_valid(digits,valid_words):
+  valid_nums = word_to_num(valid_words)
+  return [word for num, words in valid_nums.items() for word in words if num in digits]
+    
+# valid_words = ["tree", "used"]
+
+# print(t9_to_valid("8733",valid_words))
+
+def sum_swap(arr1,arr2):
+  if (sum(arr1)-sum(arr2))%2 != 0:
+    return []
+  target = abs(sum(arr1)-sum(arr2))/2
+  arr1, arr2 = (arr1, arr2) if sum(arr2) > sum(arr1) else (arr2, arr1)
+  for num2 in arr2:
+    num1 = int(abs(num2 - target))
+    if num1 in arr1:
+      return [num1,num2]
+  return []
+
+a = [4,1,2,1,1,2]    
+b = [3,6,3,3]
+
+
+print(sum_swap(b,a))
