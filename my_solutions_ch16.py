@@ -159,3 +159,27 @@ arr1 = [-10,3,4]
 def match_pattern(str:str, pattern:str)->bool:
   t = str.split()
   return len(set(zip(pattern, t))) == len(set(pattern)) == len(set(t)) and len(pattern) == len(t)
+
+def t9_convert(digits : str, valid_words : list[str]) -> list[str]:
+  if not digits: return []
+        
+  lookup = {
+      "2":["a","b","c"],
+      "3":["d","e","f"],
+      "4":["g","h","i"],
+      "5":["j","k","l"],
+      "6":["m","n","o"],
+      "7":["p","q","r","s"],
+      "8":["t","u","v"],
+      "9":["w","x","y","z"]
+  }
+  
+  result =  [""]
+  
+  for char in digits:
+      result = [prev + l for prev in result for l in lookup[char]]
+  return [word for word in result if word in valid_words]
+
+# valid_words = ["tree", "used"]
+
+# print(t9_convert("8733",valid_words))
