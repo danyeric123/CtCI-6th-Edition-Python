@@ -16,6 +16,8 @@ def pond_region(grid, x, y):
     return size
 
 
+# This would be O(WH)
+
 # fuction to find all the pond sizes
 def find_ponds(grid):
     result = []
