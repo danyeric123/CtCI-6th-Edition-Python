@@ -24,3 +24,12 @@ def getSum(a: int, b: int) -> int:
       a = a ^ b
       b = carry
   return (a & mask) if b > 0 else a
+
+from random import randrange
+
+def shuffle(nums):
+  ans = nums[:]                     # copy list
+  for i in range(len(ans)-1, 0, -1):     # start from end
+      j = randrange(0, i+1)    # generate random index 
+      ans[i], ans[j] = ans[j], ans[i]    # swap
+  return ans
