@@ -59,3 +59,24 @@ def count_twos_in_range(num : int) -> int:
     count += count_twos_in_range_at_digit(num, digit)
     
   return count
+
+# print(count_twos_in_range(22))
+
+# simple answer
+def num_twos_range(num):
+  
+  def num_twos(num):
+    count = 0
+    while num:
+      if num%10 == 2:
+        count+=1
+      num = num// 10
+    return count
+  
+  count = 0
+  for i in range(2,num+1):
+    count+= num_twos(i)
+  
+  return count
+
+# print(num_twos_range(22))
