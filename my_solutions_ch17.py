@@ -33,3 +33,29 @@ def shuffle(nums):
       j = randrange(0, i+1)    # generate random index 
       ans[i], ans[j] = ans[j], ans[i]    # swap
   return ans
+
+def count_twos_in_range_at_digit(num: int, digit : int)->int:
+  power = pow(10,digit)
+  next_power = power*10
+  right = num % power
+  
+  round_down = num - (num % next_power)
+  round_up = round_down + next_power
+  
+  digit_ =  (num/power)%10
+  
+  if digit_ < 2:
+    return round_down / 10
+  elif digit_ == 2:
+    return round_down / 10 + right + 1
+  else:
+    return round_up / 10
+  
+def count_twos_in_range(num : int) -> int:
+  count = 0
+  len_num = len(str(num))
+  
+  for digit in range(0,len_num):
+    count += count_twos_in_range_at_digit(num, digit)
+    
+  return count
