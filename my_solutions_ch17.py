@@ -141,5 +141,6 @@ def find_closest(words,word1,word2):
         
   return best
 
-
+def smallest_k(nums : list[int], k: int)->list[int]:
+  return nums.sort()[:k+1]
     
