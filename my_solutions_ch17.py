@@ -80,3 +80,34 @@ def num_twos_range(num):
   return count
 
 # print(num_twos_range(22))
+
+def majority_elem(nums):
+  
+  def get_candidate(nums):
+    majority = 0
+    count = 0
+    for n in nums:
+      if count == 0:
+        majority = n
+      
+      if n == majority:
+        count += 1
+      else:
+        count -= 1
+    return majority
+  
+  cand = get_candidate(nums)
+  
+  def validate(nums, majority):
+    count = 0
+    for n in nums:
+      if n == majority:
+        count += 1
+        
+    return count > len(nums) / 2
+  
+  return cand if validate(nums,cand) else -1
+
+# test = [3,1,1,1,7,3,7,7,7]
+
+# print(majority_elem(test))
