@@ -150,4 +150,16 @@ def longestWord(words: list[str]) -> str:
       if word[:-1] in valid:
           valid.add(word)
   return max(sorted(valid), key=len)
+
+def multi_search(word, strings):
+  lookup = {}
+  for string in strings:
+    if string in word:
+      lookup[string] = word.index(string)
     
+  return lookup
+
+t = ["is", "ppi", "hi","sis","i","ssipi"]
+b = "mississippi"
+
+# print(multi_search(b,t))
