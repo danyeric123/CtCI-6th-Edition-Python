@@ -111,3 +111,35 @@ def majority_elem(nums):
 # test = [3,1,1,1,7,3,7,7,7]
 
 # print(majority_elem(test))
+
+class Location:
+  def __init__(self, first: int, second : int) -> None:
+      self.first = first
+      self.second = second
+      
+  def set_location(self,first,second):
+    self.first = first
+    self.second = second
+  
+  def distance(self):
+    return abs(self.first-self.second)
+  
+  def update(self,loc):
+    if(loc.distance() < self.distance()):
+      self.set_location(loc.first,loc.second)
+      
+def find_closest(words,word1,word2):
+  best = current = Location(-1,-1)
+  
+  for i,word in enumerate(words):
+    if word == word1:
+      current.first = i
+      best.update(current)
+    elif word == word2:
+        current.second = i
+        best.update(current)
+        
+  return best
+
+
+    
