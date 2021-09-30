@@ -43,6 +43,7 @@ def palindrome_permutation(str):
 # print(palindrome_permutation("So patient a nurse to nurse a patient so"))
 # print(palindrome_permutation("taco coa"))
 
+# I believe this could be done with just one helper function since both replace_away and insert_away do the same thing
 def one_away(str1,str2):
   if len(str1) == len(str2):
     return replace_away(str1,str2)
