@@ -24,6 +24,8 @@ def kth_to_last(head,k):
     
   return current
 
+# This is the same as doing one round of quick sort but with linkedlist
+# So you would have two lists, one for less and one for greater and add to each
 def partition(head):
   h1 = l1 = ListNode(0)
   h2 = l2 = ListNode(0)
@@ -92,6 +94,15 @@ def palindrome(head):
 # node1 = ListNode(val=1,next=node2)
 
 # print(palindrome(node1))
+
+def get_intersection(headA, headB):
+  currA, currB = headA, headB
+  
+  while currA != currB:
+      currB = headA if currB is None else currB.next
+      currA = headB if currA is None else currA.next
+      
+  return currA
 
 def loop_detection(head):
   visited = set()
