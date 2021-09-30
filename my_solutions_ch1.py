@@ -89,13 +89,14 @@ def str_compression(str1):
   
   return min(str1, "".join(compressed), key=len)
 
-# print(str_compression("aabcccccaaa"))
-# print(str_compression("abcdef"))
-# print(str_compression("aaa"))
+
+# print(str_compress("aabcccccaaa"))
+# print(str_compress("abcdef"))
+# print(str_compress("aaa"))
 
 
 def rotate_matrix_pythonic(matrix):
-  return [[row[i] for row in matrix[::-1]] for i in range(len(matrix))]
+  matrix[:] = zip(*matrix[::-1])
 
 def rotate_matrix(matrix):
   for i in range(len(matrix)):
