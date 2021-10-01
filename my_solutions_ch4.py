@@ -32,7 +32,8 @@ def sortedArrayToBST(nums):
 # of each subtree, returning the max of each subtree. You then check the difference
 # between left and right and make sure it is less than 2. The other two calls to isBalancced
 # is to make sure that each subtree also returns True, now just the max height of each side
-# Runtime: O(E), but runs slower because of recursion twice--once in is_balanced and another time in get_height
+# Runtime: O(N log N) since it is calls get_height on the same node once per node above it
+# This runs slower because of recursion twice--once in is_balanced and another time in get_height
 def is_balanced(root):
         if not root:
             return True
@@ -56,7 +57,8 @@ def is_balanced_short(root):
     res, _ = helper(root)
     return res
   
-# DFS version, O(V+E)
+# DFS version, O(V)
+# It traverses the tree and does the calculations as it is checking balanced
 def is_balanced_dfs(root) -> bool:
         res = True
         def dfs(root):
