@@ -32,20 +32,32 @@ def sortedArrayToBST(nums):
 # of each subtree, returning the max of each subtree. You then check the difference
 # between left and right and make sure it is less than 2. The other two calls to isBalancced
 # is to make sure that each subtree also returns True, now just the max height of each side
-def isBalanced(root):
+# Runtime: O(E), but runs slower because of recursion twice--once in is_balanced and another time in get_height
+def is_balanced(root):
         if not root:
             return True
 
-        return abs(getHeight(root.left) - getHeight(root.right)) < 2 and isBalanced(root.left) and isBalanced(root.right)
+        return abs(get_height(root.left) - get_height(root.right)) < 2 and is_balanced(root.left) and is_balanced(root.right)
 
-def getHeight(root):
+def get_height(root):
     if not root:
         return 0
 
-    return 1 + max(getHeight(root.left), getHeight(root.right))
+    return 1 + max(get_height(root.left), get_height(root.right))
+
+# This is faster since it does everything in one method and pass
+# 
+def is_balanced_short(root):
+    def helper(root):
+        if not root:
+            return (True, 0)
+        (balanced_l, l_depth), (balanced_r, r_depth) = helper(root.left), helper(root.right)
+        return (balanced_l and balanced_r and abs(l_depth - r_depth) <= 1, 1 + max(l_depth, r_depth))
+    res, _ = helper(root)
+    return res
   
-# DFS version
-def isBalanced(root) -> bool:
+# DFS version, O(V+E)
+def is_balanced_dfs(root) -> bool:
         res = True
         def dfs(root):
           global res
@@ -62,7 +74,7 @@ def isBalanced(root) -> bool:
         return res
       
 # In order traversal
-def isValidBST(self, root):
+def is_valid_BST(self, root):
     output = []
     self.inOrder(root, output)
     
