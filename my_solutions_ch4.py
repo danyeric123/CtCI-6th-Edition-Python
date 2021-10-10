@@ -148,3 +148,31 @@ def findOrder(self, numCourses, prerequisites):
                 pre[b] -= 1
                 pre[b] or free.add(b)
         return out * (len(out) == numCourses)
+    
+def pathSum(root, target):
+    # define global result and path
+    result = 0
+    cache = {0:1}
+    
+    def dfs(root, target, currPathSum, cache,result):
+        # exit condition
+        if root is None:
+            return  
+        # calculate currPathSum and required oldPathSum
+        currPathSum += root.val
+        oldPathSum = currPathSum - target
+        # update result and cache
+        result += cache.get(oldPathSum, 0)
+        cache[currPathSum] = cache.get(currPathSum, 0) + 1
+        
+        # dfs breakdown
+        dfs(root.left, target, currPathSum, cache,result)
+        dfs(root.right, target, currPathSum, cache,result)
+        # when move to a different branch, the currPathSum is no longer available, hence remove one. 
+        cache[currPathSum] -= 1
+        
+    # recursive to get result
+    dfs(root, target, 0, cache,result)
+    
+    # return result
+    return result
