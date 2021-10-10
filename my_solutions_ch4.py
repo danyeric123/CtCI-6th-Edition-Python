@@ -100,3 +100,32 @@ def isSubtree(root, subRoot) -> bool:
             return "^" + str(p.val) + "#" + convert(p.left) + convert(p.right) if p else "$"
         
         return convert(subRoot) in convert(root)
+    
+    
+# This runs in O(V+D) where D is the dependencies   
+def determine_build_order(projects, dependencies):
+    # First you create a dependency list and add whatever it is dependent upon as the value
+    # If something has no dependencies, it will still be in the set but just have an empty set
+    dependency_tree = {p: set() for p in projects}
+    build_order = []
+    unbuilt_projects = set(projects)
+    for dependency, project in dependencies:
+        dependency_tree[project].add(dependency)
+
+    while unbuilt_projects:
+        something_built = False
+        for project in list(unbuilt_projects):
+            dependencies = dependency_tree[project]
+            # You get its dependencies and then check whether either there are no dependencies
+            # or the dependency was already built (hence removed from unbuilt projects list)
+            if not unbuilt_projects.intersection(dependencies):
+                build_order.append(project)
+                unbuilt_projects.remove(project)
+                something_built = True
+        if not something_built:
+            raise NoValidBuildOrderError("No valid build order exists")
+
+    return build_order
+
+class NoValidBuildOrderError(Exception):
+    pass
