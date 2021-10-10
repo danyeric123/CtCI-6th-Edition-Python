@@ -1,9 +1,7 @@
 def triple_hop(x):
     if x < 0:
         return 0
-    if x == 0:
-        return 1
-    if x == 1:
+    if x == 0 or x == 1:
         return 1
     return triple_hop(x - 1) + triple_hop(x - 2) + triple_hop(x - 3)
 
