@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Counter
 
 def swap_nums(a,b):
   a = b - a
@@ -90,6 +91,26 @@ def max_pop(people : Person) -> int:
           max_year = year
   
   return max_year
+
+def estimate(guess, solution):
+  if len(guess) != len(solution): return None
+  
+  res = [0,0]
+  
+  frequencies = Counter(solution)
+  valid_chars = 'RGBY'
+  
+  for i in range(len(guess)):
+    if guess[i] == solution[i]:
+      res[0] +=1
+    elif guess[i] in valid_chars:
+      if frequencies[guess[i]] > 0:
+        res[1] +=1
+        frequencies[guess[i]] -= 1
+        
+  return res
+
+# print(estimate('RGBY','RRRR'))
 
 # The first straightforward method for subarray would be to sort the array first then compare the sorted vs the unsorted and see the first point at which it is different and the last point it is different. This would be O(N*log(N)) since you are sorting, but we can do faster with O(N)
 
