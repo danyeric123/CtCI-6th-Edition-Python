@@ -14,6 +14,12 @@ def word_frequency(book : list[str], word : str) -> int:
   return freq
 
 # To do this multiple times, then just store it in a dictionary
+def word_frequency_dict(book : list[str], word : str) -> int:
+  freq = {}
+  for w in book:
+    if w.lower() == word.lower():
+      freq[word] += 1
+  return freq[word]
 
 def factorial_zeros(num):
   count = 0

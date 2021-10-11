@@ -3,7 +3,6 @@ import random
 def findKthLargest(nums, k):
   if not nums: return
   pivot = random.choice(nums)
-  print(pivot)
   right =  [x for x in nums if x > pivot]
   mid  =  [x for x in nums if x == pivot]
   left = [x for x in nums if x < pivot]
