@@ -160,12 +160,12 @@ def findSub(nums : list[int]) -> tuple:
 # This uses Kadane's Algorithm
 def contiguous_sequence(nums : list[int])->int:
   max_sum = min(nums)
-  sum = 0
+  sum_ = 0
   for num in nums:
     # First you check whether the sum plus the current would be more than the current num by itself
-    sum = max(num,sum+num)
+    sum_ = max(num,sum_+num)
     # Then you see if the local maximum is the global maximum
-    max_sum = max(max_sum,sum)
+    max_sum = max(max_sum,sum_)
     
   return max_sum
 
@@ -180,14 +180,53 @@ def contiguous_sequence(nums : list[int])->int:
   #         sum_ = 0
   # return maxsum
 
-arr1 = [-10,3,4]
+arr1 = [2,-8,3,-2,4,-10]
 
 # print(contiguous_sequence(arr1))
 
 # this extends the isomorphic problem
+# This solution assumes spaces in between words
 def match_pattern(str:str, pattern:str)->bool:
   t = str.split()
   return len(set(zip(pattern, t))) == len(set(pattern)) == len(set(t)) and len(pattern) == len(t)
+
+# def match_pattern_no_space(pattern,string):
+#   if len(pattern) == 0: return len(string) ==0
+  
+#   def build_from_pattern(pattern,main,alt):
+#     first = pattern[0]
+#     res = ''
+    
+#     for char in pattern:
+#       if char == first:
+#         res += main
+#       else:
+#         res+= alt
+    
+#     return res
+  
+#   main_char = pattern[0]
+#   alternate_char = 'b' if main_char == 'a' else 'a'
+  
+#   count_of_main = Counter(pattern)[main_char]
+#   count_of_alt = len(pattern) - count_of_main
+#   first_alt = pattern.index(alternate_char)
+#   max_main_size = len(string) // count_of_main
+  
+#   for num in range(max_main_size):
+#     remaining_len = len(string) - num*count_of_main
+#     first = string[0:num]
+#     if count_of_alt == 0 or remaining_len%count_of_alt==0:
+#       alt_start = first_alt*num
+#       alt_size = 0 if count_of_alt == 0 else remaining_len//count_of_alt
+#       second  = string[alt_start:(alt_size+alt_start)]
+      
+#       candidate = build_from_pattern(pattern,first,second)
+      
+#       if candidate == string:
+#         return True
+      
+#   return False
 
 # This can be done faster by pruning any possibilities that are not a valid word
 def t9_convert(digits : str, valid_words : list[str]) -> list[str]:
