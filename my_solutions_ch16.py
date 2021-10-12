@@ -276,7 +276,7 @@ def word_to_num(valid_words : list[str]):
 
 def t9_to_valid(digits,valid_words):
   valid_nums = word_to_num(valid_words)
-  return [word for num, words in valid_nums.items() for word in words if num in digits]
+  return [word for num, words in valid_nums.items() for word in words if num == digits]
     
 # valid_words = ["tree", "used"]
 
@@ -311,7 +311,7 @@ class LRU_Cache:
       self.dic[key] = v   # set key as the newest one
       return v
 
-  def set(self, key, value):
+  def set_(self, key, value):
       if key in self.dic:    
           self.dic.pop(key)
       else:
