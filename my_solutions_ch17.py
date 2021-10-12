@@ -20,10 +20,12 @@ def getSum(a: int, b: int) -> int:
   # 32 bit mask in hexadecimal
   mask = 0xffffffff # (python default int size is not 32bit, it is very large number, so to prevent overflow and stop running into infinite loop, we use 32bit mask to limit int size to 32bit )
   while(b & mask > 0):
-      carry = (a & b) << 1
-      a = a ^ b
-      b = carry
+    carry = (a & b) << 1
+    a = a ^ b
+    b = carry
   return (a & mask) if b > 0 else a
+
+# print(getSum(3,5))
 
 from random import randrange
 
@@ -33,6 +35,47 @@ def shuffle(nums):
       j = randrange(0, i+1)    # generate random index 
       ans[i], ans[j] = ans[j], ans[i]    # swap
   return ans
+
+# This is similar to contiguous subarray with 0s and 1s
+# Source: https://www.geeksforgeeks.org/longest-sub-array-with-equal-number-of-alphabets-and-numeric-characters/
+def contiguous_array(arr):
+  partial_sum = 0
+        
+		# table is a dictionary
+		# key : partial sum value
+		# value : the left-most index who has the partial sum value
+		
+  table = { 0: -1}
+  
+  max_length = 0
+  
+  for idx, elem in enumerate( arr ):
+      
+      # partial_sum add 1 for 1
+      # partial_sum minus 1 for 0
+      
+      if str(elem).isalpha():
+          partial_sum += 1
+      else:
+          partial_sum -= 1
+          
+      
+      if partial_sum in table:
+          
+          # we have a subarray with equal number of 0 and 1
+          # update max length
+          
+          max_length = max( max_length, ( idx - table[partial_sum] ) )
+          
+      else:
+          # update the left-most index for specified partial sum value
+          table[ partial_sum ] = idx
+          
+  return max_length
+
+test_case = [1,"D","F","G",2,3,4,"B","F"]
+
+print(contiguous_array(test_case))
 
 def count_twos_in_range_at_digit(num: int, digit : int)->int:
   power = pow(10,digit)
