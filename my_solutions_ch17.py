@@ -75,7 +75,7 @@ def contiguous_array(arr):
 
 test_case = [1,"D","F","G",2,3,4,"B","F"]
 
-print(contiguous_array(test_case))
+# print(contiguous_array(test_case))
 
 def count_twos_in_range_at_digit(num: int, digit : int)->int:
   power = pow(10,digit)
@@ -185,14 +185,16 @@ def find_closest(words,word1,word2):
   return best
 
 def smallest_k(nums : list[int], k: int)->list[int]:
-  return nums.sort()[:k+1]
+  return nums.sort()[:k]
 
 def longestWord(words: list[str]) -> str:
   valid = set([""])
   for word in sorted(words, key=len):
+      print(valid)
       if word[:-1] in valid:
           valid.add(word)
   return max(sorted(valid), key=len)
+
 
 def multi_search(word, strings):
   lookup = {}
@@ -206,6 +208,4 @@ t = ["is", "ppi", "hi","sis","i","ssipi"]
 b = "mississippi"
 
 # print(multi_search(b,t))
-
-
     
