@@ -11,6 +11,8 @@ def group_anagrams(words):
     for similar_words in anagrams.values():
         sorted_words.extend(similar_words)
     return sorted_words
+    # more pythonic
+    # return [words for words in anagrams]
 
 
 def test_group_anagrams():
