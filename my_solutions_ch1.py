@@ -17,13 +17,49 @@ def check_permutation(str1,str2):
   return True
 
 def check_permutation_pythonic(str1, str2):
-    if len(str1) != len(str2):
-        return False
+  if len(str1) != len(str2):
+      return False
 
-    return Counter(str1) == Counter(str2)
+  return Counter(str1) == Counter(str2)
   
 # print(check_permutation("dog","god"))
 # print(check_permutation("dogx","godz"))
+
+# Harder Version of Check Permutation:
+
+# Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+# In other words, return true if one of s1's permutations is the substring of s2.
+
+# Leetcode link: https://leetcode.com/problems/permutation-in-string/
+
+def checkInclusion(s1: str, s2: str) -> bool:
+  if len(s2) < len(s1):
+      return False
+
+  s1CharCount = {chr(ord('a')+i): 0 for i in range(26)}
+  s2CharCount = {chr(ord('a')+i): 0 for i in range(26)}
+
+  l, r = 0, 0
+
+  for i,char in enumerate(s1):
+      s1CharCount[char] += 1
+      s2CharCount[s2[i]] += 1
+      r += 1
+      
+      
+  if s1CharCount == s2CharCount:
+      return True
+
+  while r < len(s2):
+      s2CharCount[s2[r]] += 1
+      s2CharCount[s2[l]] -= 1
+      if s1CharCount == s2CharCount:
+          return True
+      
+      r += 1
+      l += 1
+      
+  return False
 
 def urlify_with_length(str,len):
   return str[:len].replace(" ","%20")
