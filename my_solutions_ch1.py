@@ -39,6 +39,7 @@ def checkInclusion(s1: str, s2: str) -> bool:
   s1CharCount = {chr(ord('a')+i): 0 for i in range(26)}
   s2CharCount = {chr(ord('a')+i): 0 for i in range(26)}
 
+  # Initialize sliding window
   l, r = 0, 0
 
   for i,char in enumerate(s1):
@@ -50,6 +51,7 @@ def checkInclusion(s1: str, s2: str) -> bool:
   if s1CharCount == s2CharCount:
       return True
 
+  # Go through s2 with the sliding window and see if the charcount matches
   while r < len(s2):
       s2CharCount[s2[r]] += 1
       s2CharCount[s2[l]] -= 1
