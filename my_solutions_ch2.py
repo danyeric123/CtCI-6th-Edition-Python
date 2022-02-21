@@ -26,7 +26,7 @@ def kth_to_last(head,k):
 
 # This is the same as doing one round of quick sort but with linkedlist
 # So you would have two lists, one for less and one for greater and add to each
-def partition(head):
+def partition(head,x):
   h1 = l1 = ListNode(0)
   h2 = l2 = ListNode(0)
   while head:
