@@ -112,7 +112,9 @@ def estimate(guess, solution):
 
 # print(estimate('RGBY','RRRR'))
 
-# The first straightforward method for subarray would be to sort the array first then compare the sorted vs the unsorted and see the first point at which it is different and the last point it is different. This would be O(N*log(N)) since you are sorting, but we can do faster with O(N)
+# The first straightforward method for subarray would be to sort the array first 
+# then compare the sorted vs the unsorted and see the first point at which it is different and the last point it is different. 
+# This would be O(N*log(N)) since you are sorting, but we can do faster with O(N)
 
 # Naive approach
 def findSubarry(nums : list[int]) -> tuple:
