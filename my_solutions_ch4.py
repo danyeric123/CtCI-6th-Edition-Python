@@ -13,11 +13,13 @@ def is_route(graph, start, end, visited=None):
                 return True
     return False
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
 
 def sortedArrayToBST(nums):
     if not nums:
@@ -27,9 +29,10 @@ def sortedArrayToBST(nums):
 
     root = TreeNode(nums[mid])
     root.left = sortedArrayToBST(nums[:mid])
-    root.right = sortedArrayToBST(nums[mid+1:])
+    root.right = sortedArrayToBST(nums[mid + 1 :])
 
     return root
+
 
 # You recursively go through each subtree (kinda like DFS) and get the depth
 # of each subtree, returning the max of each subtree. You then check the difference
@@ -38,10 +41,15 @@ def sortedArrayToBST(nums):
 # Runtime: O(N log N) since it is calls get_height on the same node once per node above it
 # This runs slower because of recursion twice--once in is_balanced and another time in get_height
 def is_balanced(root):
-        if not root:
-            return True
+    if not root:
+        return True
 
-        return abs(get_height(root.left) - get_height(root.right)) < 2 and is_balanced(root.left) and is_balanced(root.right)
+    return (
+        abs(get_height(root.left) - get_height(root.right)) < 2
+        and is_balanced(root.left)
+        and is_balanced(root.right)
+    )
+
 
 def get_height(root):
     if not root:
@@ -49,63 +57,76 @@ def get_height(root):
 
     return 1 + max(get_height(root.left), get_height(root.right))
 
+
 # This is faster since it does everything in one method and pass
-# 
+#
 def is_balanced_short(root):
     def helper(root):
         if not root:
             return (True, 0)
-        (balanced_l, l_depth), (balanced_r, r_depth) = helper(root.left), helper(root.right)
-        return (balanced_l and balanced_r and abs(l_depth - r_depth) <= 1, 1 + max(l_depth, r_depth))
+        (balanced_l, l_depth), (balanced_r, r_depth) = helper(root.left), helper(
+            root.right
+        )
+        return (
+            balanced_l and balanced_r and abs(l_depth - r_depth) <= 1,
+            1 + max(l_depth, r_depth),
+        )
+
     res, _ = helper(root)
     return res
-  
+
+
 # DFS version, O(V)
 # It traverses the tree and does the calculations as it is checking balanced
 def is_balanced_dfs(root) -> bool:
-        res = True
-        def dfs(root):
-          global res
-          if not root:
-              return 0
-          left = dfs(root.left) + 1
-          right = dfs(root.right) + 1
-          
-          if abs(right - left) > 1:
-              res = False
-          
-          return max(left, right)
-        dfs(root)
-        return res
-      
+    res = True
+
+    def dfs(root):
+        global res
+        if not root:
+            return 0
+        left = dfs(root.left) + 1
+        right = dfs(root.right) + 1
+
+        if abs(right - left) > 1:
+            res = False
+
+        return max(left, right)
+
+    dfs(root)
+    return res
+
+
 # In order traversal
 def is_valid_BST(self, root):
     output = []
     self.inOrder(root, output)
-    
+
     for i in range(1, len(output)):
-        if output[i-1] >= output[i]:
+        if output[i - 1] >= output[i]:
             return False
 
     return True
 
+
 def inOrder(self, root, output):
     if root is None:
         return
-    
+
     self.inOrder(root.left, output)
     output.append(root.val)
     self.inOrder(root.right, output)
-    
+
+
 # Pre-Order traversal, converting tree to string
 def isSubtree(root, subRoot) -> bool:
-        def convert(p):
-            return "^" + str(p.val) + "#" + convert(p.left) + convert(p.right) if p else "$"
-        
-        return convert(subRoot) in convert(root)
-    
-    
-# This runs in O(V+D) where D is the dependencies   
+    def convert(p):
+        return "^" + str(p.val) + "#" + convert(p.left) + convert(p.right) if p else "$"
+
+    return convert(subRoot) in convert(root)
+
+
+# This runs in O(V+D) where D is the dependencies
 def determine_build_order(projects, dependencies):
     # First you create a dependency list and add whatever it is dependent upon as the value
     # If something has no dependencies, it will still be in the set but just have an empty set
@@ -130,49 +151,52 @@ def determine_build_order(projects, dependencies):
 
     return build_order
 
+
 class NoValidBuildOrderError(Exception):
     pass
 
-#c Creative solution to similar problem
+
+# c Creative solution to similar problem
 def findOrder(self, numCourses, prerequisites):
-        pre, suc = defaultdict(int), defaultdict(list)
-        for a, b in prerequisites:
-            pre[a] += 1
-            suc[b].append(a)
-        free = set(range(numCourses)) - set(pre)
-        out = []
-        while free:
-            a = free.pop()
-            out.append(a)
-            for b in suc[a]:
-                pre[b] -= 1
-                pre[b] or free.add(b)
-        return out * (len(out) == numCourses)
-    
+    pre, suc = defaultdict(int), defaultdict(list)
+    for a, b in prerequisites:
+        pre[a] += 1
+        suc[b].append(a)
+    free = set(range(numCourses)) - set(pre)
+    out = []
+    while free:
+        a = free.pop()
+        out.append(a)
+        for b in suc[a]:
+            pre[b] -= 1
+            pre[b] or free.add(b)
+    return out * (len(out) == numCourses)
+
+
 def pathSum(root, target):
     # define global result and path
     result = 0
-    cache = {0:1}
-    
-    def dfs(root, target, currPathSum, cache,result):
+    cache = {0: 1}
+
+    def dfs(root, target, currPathSum, cache, result):
         # exit condition
         if root is None:
-            return  
+            return
         # calculate currPathSum and required oldPathSum
         currPathSum += root.val
         oldPathSum = currPathSum - target
         # update result and cache
         result += cache.get(oldPathSum, 0)
         cache[currPathSum] = cache.get(currPathSum, 0) + 1
-        
+
         # dfs breakdown
-        dfs(root.left, target, currPathSum, cache,result)
-        dfs(root.right, target, currPathSum, cache,result)
-        # when move to a different branch, the currPathSum is no longer available, hence remove one. 
+        dfs(root.left, target, currPathSum, cache, result)
+        dfs(root.right, target, currPathSum, cache, result)
+        # when move to a different branch, the currPathSum is no longer available, hence remove one.
         cache[currPathSum] -= 1
-        
+
     # recursive to get result
-    dfs(root, target, 0, cache,result)
-    
+    dfs(root, target, 0, cache, result)
+
     # return result
     return result
