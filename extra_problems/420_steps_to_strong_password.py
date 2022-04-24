@@ -1,3 +1,4 @@
+# Solution from Ryan Logsdon (https://www.youtube.com/watch?v=aBu8T3YxQI0)
 class Solution:
     MIN_LENGTH = 6
     MAX_LENGTH = 20
